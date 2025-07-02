@@ -59,3 +59,37 @@ export type DrawerParamList = {
     followers?: { total: number };
     public?: boolean;
   }
+
+  export interface SpotifyContextType {
+    user: any;
+    accessToken: string | null;
+    searchResults: any[];
+    login: () => void;
+    searchTracks: (query: string) => void;
+    logout: () => void;
+    isLoading: boolean;
+    getArtist: (artistId: string) => Promise<any>;
+    getArtistTopTracks: (artistId: string) => Promise<any[]>;
+    getArtistAlbums: (artistId: string) => Promise<any[]>;
+    getRelatedArtists: (artistId: string) => Promise<any[]>;
+    playPreview: (track: any) => Promise<void>;
+    stopPlayback: () => Promise<void>;
+    handlePlayPreview: (track: any) => void;
+    currentTrack: any;
+    isPlaying: boolean;
+  };
+
+  export interface PlaylistContextType {
+    playlists: Playlist[];
+    createPlaylist: (name: string, isLocal?: boolean) => Promise<Playlist | null>;
+    addToPlaylist: (playlistId: string, track: Track, isLocal?: boolean) => Promise<void>;
+    editPlaylist: (playlistId: string, name: string, description?: string) => Promise<void>;
+    deletePlaylist: (playlistId: string) => void;
+    fetchPlaylists: () => Promise<void>;
+    getPlaylistById: (id: string, isLocal?: boolean) => Playlist | undefined;
+    removeTrackFromPlaylist: (trackId: string, playlistId: string) => void;
+    getPlaylistTracks: (playlistId: string, isLocal?: boolean) => Promise<Track[]>;
+    getArtistImage: (artistName: string, artistId?: string) => Promise<string>;
+    searchArtists: (query: string) => Promise<Artist[]>;
+  }
+  

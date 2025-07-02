@@ -90,7 +90,6 @@ export default function PlaylistModal({ visible, onClose, track }: Props) {
       
       await addToPlaylist(playlistId, trackData, isLocal);
       
-      // Show success toast
       Toast.show({
         type: 'success',
         text1: 'Song Added!',
@@ -99,13 +98,11 @@ export default function PlaylistModal({ visible, onClose, track }: Props) {
         visibilityTime: 3000,
       });
       
-      // Close modal after short delay
       setTimeout(() => {
         handleClose();
       }, 500);
       
     } catch (error) {
-      // Show error toast
       Toast.show({
         type: 'error',
         text1: 'Error',

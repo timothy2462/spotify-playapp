@@ -1,4 +1,5 @@
 
+import { SpotifyContextType } from '@/types';
 import * as AuthSession from 'expo-auth-session';
 import { Audio } from 'expo-av';
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
@@ -8,25 +9,6 @@ import { deleteToken, getToken, saveToken } from '../utils/storage';
 const discovery = {
   authorizationEndpoint: 'https://accounts.spotify.com/authorize',
   tokenEndpoint: 'https://accounts.spotify.com/api/token',
-};
-
-type SpotifyContextType = {
-  user: any;
-  accessToken: string | null;
-  searchResults: any[];
-  login: () => void;
-  searchTracks: (query: string) => void;
-  logout: () => void;
-  isLoading: boolean;
-  getArtist: (artistId: string) => Promise<any>;
-  getArtistTopTracks: (artistId: string) => Promise<any[]>;
-  getArtistAlbums: (artistId: string) => Promise<any[]>;
-  getRelatedArtists: (artistId: string) => Promise<any[]>;
-  playPreview: (track: any) => Promise<void>;
-  stopPlayback: () => Promise<void>;
-  handlePlayPreview: (track: any) => void;
-  currentTrack: any;
-  isPlaying: boolean;
 };
 
 const SpotifyContext = createContext<SpotifyContextType | undefined>(undefined);

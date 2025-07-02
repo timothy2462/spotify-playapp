@@ -1,22 +1,7 @@
-import { Artist, Playlist, Track } from '@/types';
+import { Artist, Playlist, PlaylistContextType, Track } from '@/types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSpotify } from './spotifyContextProvider';
 
-
-
-interface PlaylistContextType {
-  playlists: Playlist[];
-  createPlaylist: (name: string, isLocal?: boolean) => Promise<Playlist | null>;
-  addToPlaylist: (playlistId: string, track: Track, isLocal?: boolean) => Promise<void>;
-  editPlaylist: (playlistId: string, name: string, description?: string) => Promise<void>;
-  deletePlaylist: (playlistId: string) => void;
-  fetchPlaylists: () => Promise<void>;
-  getPlaylistById: (id: string, isLocal?: boolean) => Playlist | undefined;
-  removeTrackFromPlaylist: (trackId: string, playlistId: string) => void;
-  getPlaylistTracks: (playlistId: string, isLocal?: boolean) => Promise<Track[]>;
-  getArtistImage: (artistName: string, artistId?: string) => Promise<string>;
-  searchArtists: (query: string) => Promise<Artist[]>;
-}
 
 const PlaylistContext = createContext<PlaylistContextType | undefined>(undefined);
 
@@ -89,7 +74,6 @@ export const PlaylistProvider = ({ children }: { children: React.ReactNode }) =>
       
       if (artist && artist.images && artist.images.length > 0) {
         const imageUrl = artist.images[0].url;
-        // Cache the result
         setArtistImageCache(prev => ({
           ...prev,
           [cacheKey]: imageUrl
@@ -100,7 +84,6 @@ export const PlaylistProvider = ({ children }: { children: React.ReactNode }) =>
       console.error('Failed to fetch artist image:', error);
     }
 
-    // Return placeholder if no image found
     const placeholder = 'https://via.placeholder.com/300x300/1DB954/ffffff?text=' + encodeURIComponent(artistName.charAt(0));
     setArtistImageCache(prev => ({
       ...prev,
